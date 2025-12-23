@@ -48,15 +48,10 @@ function handleResult(resultData) {
 
     rowHTML += "</tr>";
     starInfoElement.append(rowHTML);
-
-    /*
-    let backButtonElement = jQuery("#back_button");
-    backButtonElement.append("<p><a href='index.html'>Back to Top 20 Movie Picks</a></p>");
-    */
 }
 
 /**
- * Once this .js is loaded, following scripts will be executed by the browser\
+ * Once this .js is loaded, following scripts will be executed by the browser
  */
 
 let starId = getParameterByName('id');

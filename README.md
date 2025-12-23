@@ -8,10 +8,20 @@ Based on assignment instructions from Prof. Chen Li
 
 **Tech Stack** | Java, MySQL, JavaScript, HTML, Bootstrap, Apache Tomcat, Docker, Kubernetes, AWS EC2, Google Cloud, IntelliJ IDEA, Maven, JMeter
 
-## :film_strip: DEMO
+## :film_strip: DEMOS
 
 ## :classical_building: ARCHITECTURE
- 
+### :gear: BACKEND
+The backend is engineered with **Java Servlets** that use **JDBC (Java Database Connectivity)** to interact with a **MySQL** movie database, performing queries and inserting data. The servlets receive a HTTP request from the frontend, execute database operations, and return a response in JSON format for rendering. Additionally, **SAX parsing** was used to efficiently process large XML datasets and integrate the extracted data into the movie database.
+
+### :computer_mouse: FRONTEND
+The frontend is built with **JavaScript**, **HTML**, and **Bootstrap** styling, providing a dynamic and responsive interface. JavaScript manages client-side behavior and user interactions by communicating with the backend through **jQuery AJAX** calls. Responses from the backend are returned as structured JSON data, which JavaScript processes to dynamically update the HTML content.
+
+### :rocket: DEPLOYMENT & SCALABILITY
+
+
+### :lock: SECURITY
+Fabflix implements multiple protections to strengthen system security. **Password encryption** is used to securely store user credentials in the database, ensuring sensitive information is not kept in plain text. On the backend, **prepared statements** in servlets guard against SQL injection attacks. **Authentication filters** restrict access to protected pages, requiring users to log in before accessing core application functionality. A **reCAPTCHA** is used to prevent automated abuse during login, while **enforced HTTPS** protects all client-server communication.
 
 ## :open_file_folder: PROJECT FILE STRUCTURE
 ```bash

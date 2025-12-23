@@ -49,7 +49,6 @@ search_form.submit(submitSearchForm);
 function handleLookup(query, doneCallback) {
     console.log("autocomplete initiated")
 
-    // TODO: if you want to check past query results first, you can do it here
     var cacheList = localStorage.getItem(query);
     if (cacheList) {
         console.log("Using cached results for query: " + query);
@@ -100,7 +99,6 @@ function handleLookupAjaxSuccess(data, query, doneCallback) {
     });
     console.log(formattedData);
 
-    // TODO: if you want to cache the result into a global variable you can do it here
     localStorage.setItem(query, JSON.stringify(formattedData));
 
     // Call the callback function with the formatted suggestions
@@ -115,7 +113,6 @@ function handleLookupAjaxSuccess(data, query, doneCallback) {
  * You can redirect to the page you want using the suggestion data.
  */
 function handleSelectSuggestion(suggestion) {
-    // TODO: jump to the specific result page based on the selected suggestion
     var singleMoviePageUrl = "single-movie.html?id=" + suggestion["data"];
     window.location.href = singleMoviePageUrl;
 }
@@ -141,7 +138,5 @@ $('#title').autocomplete({
     },
     // set delay time
     deferRequestBy: 300,
-    // there are some other parameters that you might want to use to satisfy all the requirements
-    // TODO: add other parameters, such as minimum characters
     minChars: 3
 });
