@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.devbridge-autocomplete/1.4.11/jquery.autocomplete.min.js"></script>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+
+    <style>
+        .colored-title {
+            color: #0c68c9; /* Blue color */
+        }
+        .autocomplete-suggestions { border: 1px solid #999; background: #FFF; overflow: auto; }
+        .autocomplete-suggestion { padding: 2px 5px; white-space: nowrap; overflow: hidden; }
+        .autocomplete-selected { background: #F0F0F0; }
+        .autocomplete-suggestions strong { font-weight: normal; color: #3399FF; }
+        .autocomplete-group { padding: 2px 5px; }
+        .autocomplete-group strong { display: block; border-bottom: 1px solid #000; }
+    </style>
+
+    <title>Search</title>
+</head>
+<body>
+
+
+<nav class="navbar navbar-expand navbar-light bg-light">
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" href="login.html">Login</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="search.html">Search</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="browse.html">Browse</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="cart.html">Checkout</a>
+        </li>
+    </ul>
+</nav>
+
+<div class="container mt-4">
+    <h1 class="text-center colored-title">Search</h1>
+    <form id="search_form">
+        <div class="form-group">
+            <label for="title"><b>Title</b></label>
+            <input id="title" name="title" class="form-control" placeholder="Enter movie title (fulltext search)" type="text">
+        </div>
+        <div class="form-group">
+            <label for="year"><b>Year</b></label>
+            <input id="year" name="year" class="form-control" placeholder="Enter movie year" type="text">
+        </div>
+        <div class="form-group">
+            <label for="director"><b>Director</b></label>
+            <input id="director" name="director" class="form-control" placeholder="Enter movie director" type="text">
+        </div>
+        <div class="form-group">
+            <label for="star_name"><b>Star Name</b></label>
+            <input id="star_name" name="star_name" class="form-control" placeholder="Enter star name" type="text">
+        </div>
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+</div>
+
+<!-- Load jQuery and Bootstrap JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<!-- Include your own JS file -->
+<script src="search.js"></script>
+</body>
+</html>
