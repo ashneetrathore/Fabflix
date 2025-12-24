@@ -5,6 +5,7 @@ Date: June 2024\
 Developer(s): Ashneet Rathore\
 Based on assignment instructions from Prof. Chen Li
 
+Fabflix is a full-stack movie marketplace with search, browse, and (mock) purchase functionality for 16,000+ movies. The application features a complex, layered architecture with persistent data storage, and was designed with scalability and security in mind. Users can explore the movie collection using various filters, view detailed information about movies and actors, add titles to a shopping cart, and complete a digital purchase using a credit card. The application also includes employee-access features to add new movies or actors to the database.
 
 **Tech Stack** | Java, MySQL, JavaScript, HTML, Bootstrap, Apache Tomcat, Docker, Kubernetes, AWS EC2, Google Cloud, IntelliJ IDEA, Maven, JMeter
 
@@ -12,25 +13,42 @@ Based on assignment instructions from Prof. Chen Li
 
 ## :classical_building: ARCHITECTURE
 ### :gear: BACKEND
-The backend is engineered with **Java Servlets** that use **JDBC (Java Database Connectivity)** to interact with a **MySQL** movie database, performing queries and inserting data. The servlets receive a HTTP request from the frontend, execute database operations, and return a response in JSON format for rendering. Additionally, [**SAX parsing**](https://github.com/ashneetrathore/Fabflix/tree/main/src/XMLParsing) was used to efficiently process large XML datasets and integrate the extracted data into the movie database.
+The backend is engineered with **Java Servlets** that use **JDBC (Java Database Connectivity)** to interact with a **MySQL** movie database, performing queries and inserting data. The servlets receive a HTTP request from the frontend, execute database operations, and return a response in JSON format for rendering. Additionally, [**SAX parsing**](https://github.com/ashneetrathore/Fabflix/tree/main/src/XMLParsing) is used to efficiently process large XML datasets and integrate the extracted data into the movie database.
 
 ### :computer_mouse: FRONTEND
 The frontend is built with **JavaScript**, **HTML**, and **Bootstrap** styling, providing a dynamic and responsive interface. JavaScript manages client-side behavior and user interactions by communicating with the backend through **jQuery AJAX** calls. Responses from the backend are returned as structured JSON data, which JavaScript processes to dynamically update the HTML content.
 
 ### :rocket: DEPLOYMENT & SCALABILITY
-Fabflix's deployment strategy emphasized traffic distribution and scalability, ensuring the application could handle high user load reliably. The application was deployed on **AWS EC2**, where each instance acts as a separate virtual server hosting the full stack application. On each instance, **Apache Tomcat** serves as the application server, running Java servlets and serving client requests. In this layered architecture, EC2 provides the computing resources and Tomcat runs the application on top of each instance.
+Fabflix's deployment strategy emphasizes traffic distribution and scalability, ensuring the application could handle high user load reliably. The application was deployed on **AWS EC2**, where each instance acts as a separate virtual server hosting the full stack application. On each instance, **Apache Tomcat** serves as the application server, running Java servlets and serving client requests. In this layered architecture, EC2 provides the computing resources and Tomcat runs the application on top of each instance.
 
-Initially, Fabflix was deployed on a single EC2 instance. Later, a **load balancer** was introduced to distribute incoming traffic across multiple EC2 instances. By spreading requests across multiple servers, the load balancer helped prevent any single instance from becoming overloaded, improving performance and scalability. To maintain session continuity - for example, for shopping cart functionality - the load balancer used **sticky sessions**, implemented with cookies. This ensured a user's requests were consistently routed to the same server to preserve session data while still supporting scalable traffic distribution.
+Initially, Fabflix was deployed on a single EC2 instance. Later, a **load balancer** was introduced to distribute incoming traffic across multiple EC2 instances. By spreading requests across multiple servers, the load balancer prevents any single instance from becoming overloaded, improving performance and scalability. To maintain session continuity - for example, for shopping cart functionality - the load balancer uses **sticky sessions**, implemented with cookies. This ensures each user's requests are consistently routed to the same server to preserve session data while still supporting scalable traffic distribution.
 
-Manually launching new EC2 instances and configuring the load balancer was time-consuming and prone to human error. To streamline deployment, Fabflix was later containerized using Docker, packaging the application with all its dependencies into a single, portable unit. These containers were then deployed on a Kubernetes (K8s) cluster on AWS, where each container ran inside a pod (the basic unit of deployment). Kubernetes automated scaling and management by launching and terminating pods based on demand, distributed traffic across pods with built-in load balancing, and recovered from failures without manual intervention. This approach eliminated the need for manual instance management and made the deployment process much more efficient and scalable.
+Manually launching new EC2 instances and configuring the load balancer was time-consuming and prone to human error. To streamline deployment, Fabflix was later containerized using **Docker**, packaging the application with all its dependencies into a single, portable unit. These containers were then deployed on a **Kubernetes (K8s) cluster** on AWS, where each container ran inside a pod (the basic unit of deployment). Kubernetes automates scaling and management by launching and terminating pods based on demand, distributing traffic across pods with built-in load balancing, and recovering from failures without manual intervention. This approach eliminates the need for manual instance management and makes deployment much more efficient and scalable.
 
-At the database layer, Fabflix is structured to support scalability through a **primary-replica MySQL architecture**. In this setup, all write operations, such as adding movies or sales records, are directed to the primary database, while read operations, like browsing or searching, are handled by a replica database. This prevents the load from falling all onto one database. In the current implementation, both data sources in the `context.xml` point to the same database, so the scalability benefits are not yet active. However, this configuration demonstrates the system's readiness to support replication in the future. Additionally, **connection pooling** is implemented to optimize database access by reusing open connections instead of opening a new one for every request, improving efficiency and response time.
+At the database layer, Fabflix is structured to support scalability through a **primary-replica MySQL architecture**. In this setup, all write operations, such as adding movies or sales records, are directed to the primary database, while read operations, like browsing or searching, are handled by a replica database. This prevents the load from falling all onto one database. In the current implementation, both data sources in the `context.xml` point to the same database, so the scalability benefits are not yet active. However, this configuration demonstrates the system's readiness to support replication in the future. Additionally, **connection pooling** optimizes database access by reusing open connections instead of opening a new one for every request, improving efficiency and response time.
 
 ### :lock: SECURITY
-Fabflix implements multiple protections to strengthen system security. **Password encryption** is used to securely store user credentials in the database, ensuring sensitive information is not kept in plain text. On the backend, **prepared statements** in servlets guard against SQL injection attacks. **Authentication filters** restrict access to protected pages, requiring users to log in before accessing core application functionality. A **reCAPTCHA** is used to prevent automated abuse during login, while **enforced HTTPS** (in deployed version) protects all client-server communication.
+Fabflix implements multiple protections to strengthen system security. **Password encryption** securely stores user credentials in the database, ensuring sensitive information is not kept in plain text. On the backend, **prepared statements** in servlets guard against SQL injection attacks. **Authentication filters** restrict access to protected pages, requiring users to log in before accessing core application functionality. A **reCAPTCHA** prevents automated abuse during login, while **enforced HTTPS** (in deployed version) protects all client-server communication.
 
-PAGES & FEATURES
+## :page_facing_up: PAGES AND FEATURES
+User Pages\
+Description of the main user-facing pages in the application:
+- Login Page | Prompts users to log in
+- Search Page | Supports **full-text and autocomplete searching** across multiple fields, including title, release year, director, or starring actor
+- Browse Page | Supports browsing by genre or by the first character of a movie title
+- Movie Results Page | Displays movies returned by search or browse actions and supporting sorting by rating or title
+- Movie Info Page | Displays information about a movie, including release year, director, genres, cast, rating
+- Star Info Page | Displays information about a star, including name, birthdate, and the movies they've appeared in
+- Cart Page | Shows movies added to the cart, along with total cost, including options to adjust quantities and remove items
+- Payment Page | Collects payment information, including first and last name and credit card details
+- Order Confirmation Page | Provides a digital receipt with order details
 
+Employee Pages\
+Description of the pages available to users with employee access:
+- Employee Login Page | Prompts employees to log in
+- Metadata Page | Displays schema of tables in movie database
+- Add Star Page | Adds a new star to the movie database by entering star info
+- Add Movie Page | Adds a new movie to the movie database by entering movie details
 
 ## :open_file_folder: PROJECT FILE STRUCTURE
 ```bash
