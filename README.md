@@ -10,7 +10,7 @@ Fabflix is a full-stack movie marketplace with search, browse, and (mock) purcha
 **Tech Stack** | Java, MySQL, JavaScript, HTML, Bootstrap, Apache Tomcat, Docker, Kubernetes, AWS EC2, Google Cloud, IntelliJ IDEA, Maven, JMeter
 
 ## :film_strip: DEMOS
-The following is a collection of demo videos showcasing Fabflix deployment and core app functionality. Each video highlights a different version of the app (with V1 representing the initial version and V4 the final version) and focuses on new functionality added during that two-week sprint. The description of each video contains clickable timestamps with brief notes on key steps.
+The following is a collection of demo videos showcasing Fabflix deployment and core app functionality. Each video highlights a different version of the app (with V1 representing the initial version and V4 the final version) and focuses on new functionality added during that two-week sprint. The description under each video contains clickable timestamps with brief notes on key steps.
 
 [Fabflix Demo V1](https://youtu.be/zLr02dkXvww?si=8RD5tr6fShmn8hCh) | Initial Deployment and Core App Functionality\
 [Fabflix Demo V2](https://youtu.be/-_t8zEtrpQI?si=rnibk6zNPNhP1pkO) | XML Parsing, Security Features, & Employee-Access Features\
