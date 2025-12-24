@@ -13,7 +13,7 @@ Fabflix is a full-stack movie marketplace with search, browse, and (mock) purcha
 
 ## :classical_building: ARCHITECTURE
 ### :gear: BACKEND
-The backend is engineered with **Java Servlets** that use **JDBC (Java Database Connectivity)** to interact with a **MySQL** movie database, performing queries and inserting data. The servlets receive a HTTP request from the frontend, execute database operations, and return a response in JSON format for rendering. Additionally, [**SAX parsing**](https://github.com/ashneetrathore/Fabflix/tree/main/src/XMLParsing) is used to efficiently process large XML datasets and integrate the extracted data into the movie database.
+The backend is engineered with **Java Servlets** that use **JDBC (Java Database Connectivity)** to interact with a **MySQL** movie database, performing queries and inserting data. The servlets receive a HTTP request from the frontend, execute database operations, and return a response in JSON format for rendering. Additionally, **SAX parsing** is used to efficiently process large XML datasets and integrate the extracted data into the movie database.
 
 ### :computer_mouse: FRONTEND
 The frontend is built with **JavaScript**, **HTML**, and **Bootstrap** styling, providing a dynamic and responsive interface. JavaScript manages client-side behavior and user interactions by communicating with the backend through **jQuery AJAX** calls. Responses from the backend are returned as structured JSON data, which JavaScript processes to dynamically update the HTML content.
@@ -37,7 +37,7 @@ Description of the main user-facing pages in the application:
 - Search Page | Supports **full-text and autocomplete searching** across multiple fields, including title, release year, director, or starring actor
 - Browse Page | Supports browsing by genre or by the first character of a movie title
 - Movie Results Page | Displays movies returned by search or browse actions and supporting sorting by rating or title
-- Movie Info Page | Displays information about a movie, including release year, director, genres, cast, rating
+- Movie Info Page | Displays information about a movie, including title, release year, director, genres, cast, and rating
 - Star Info Page | Displays information about a star, including name, birthdate, and the movies they've appeared in
 - Cart Page | Shows movies added to the cart, along with total cost, including options to adjust quantities and remove items
 - Payment Page | Collects payment information, including first and last name and credit card details
@@ -49,6 +49,8 @@ Description of the pages available to users with employee access:
 - Metadata Page | Displays schema of tables in movie database
 - Add Star Page | Adds a new star to the movie database by entering star info
 - Add Movie Page | Adds a new movie to the movie database by entering movie details
+
+Links within pages are context-aware, meaning they navigate to relevant content - clicking a movie on a Star Info page opens the corresponding Movie Info page, clicking a genre on a Movie Info page shows search results for that genre, etc.
 
 ## :open_file_folder: PROJECT FILE STRUCTURE
 ```bash
