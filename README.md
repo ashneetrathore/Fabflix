@@ -10,6 +10,12 @@ Fabflix is a full-stack movie marketplace with search, browse, and (mock) purcha
 **Tech Stack** | Java, MySQL, JavaScript, HTML, Bootstrap, Apache Tomcat, Docker, Kubernetes, AWS EC2, Google Cloud, IntelliJ IDEA, Maven, JMeter
 
 ## :film_strip: DEMOS
+The following is a collection of demo videos showcasing Fabflix deployment and core app functionality. Each video highlights a different version of the app, with V1 representing the initial version and V4 the final version. Rather than showing every feature in each demo, each video focuses on the new functionality added during that two-week sprint. The description of each video contains clickable timestamps with brief notes on key steps.
+
+[Fabflix Demo V1](https://youtu.be/zLr02dkXvww?si=8RD5tr6fShmn8hCh) | Initial Deployment and Core App Functionality\
+[Fabflix Demo V2](https://youtu.be/-_t8zEtrpQI?si=rnibk6zNPNhP1pkO) | XML Parsing, Security Features, & Employee-Access Features\
+[Fabflix Demo V3](https://youtu.be/g4ee-v2bQro?si=T6k6s6FKSe1H6u9U) | Load Balancing Setup and Full-text and Automcomplete Search\
+[Fabflix Demo V4](https://youtu.be/O8jyhIrbK7I?si=q7kRGiQ2Lg-U-vns) | Kubernetes Deployment
 
 ## :classical_building: ARCHITECTURE
 ### :gear: BACKEND
@@ -21,7 +27,7 @@ The frontend is built with **JavaScript**, **HTML**, and **Bootstrap** styling, 
 ### :rocket: DEPLOYMENT & SCALABILITY
 Fabflix's deployment strategy emphasizes traffic distribution and scalability to handle high user load reliably. The application was deployed on **AWS EC2**, with each instance functioning as an independent virtual machine hosting the full stack application. **Apache Tomcat** serves as the application server, running Java servlets and handling client requests. In this layered architecture, EC2 provides the computing resources and Tomcat runs the application on top of each instance.
 
-Initially, Fabflix was deployed on a single EC2 instance. Later, a **load balancer** was introduced to distribute incoming traffic across multiple EC2 instances. By spreading requests across multiple servers, the load balancer prevents any single instance from becoming overloaded, improving performance and scalability. To maintain session continuity - for example, for shopping cart functionality - the load balancer uses **sticky sessions**, implemented with cookies. This approach ensures each user's requests are consistently routed to the same server to preserve session data while still supporting scalable traffic distribution.
+Initially, Fabflix was deployed on a single EC2 instance. Later, a **load balancer** was introduced to distribute incoming traffic across multiple EC2 instances. By spreading requests across multiple servers, the load balancer prevents any single instance from becoming overloaded, improving performance and scalability. To maintain session continuity - for example, for shopping cart functionality - the load balancer uses **sticky sessions**, implemented with cookies. This approach ensures each user's requests are consistently routed to the same server to preserve session data while still supporting scalable traffic distribution. In addition to the EC2 load balancer, a Google Cloud Platform (GCP) load balancer was also configured as a learning exercise to explore cloud load balancing in a different environment.
 
 Manually launching new EC2 instances and configuring the load balancer was time-consuming and prone to human error. To streamline deployment, Fabflix was later containerized using **Docker**, packaging the application with all its dependencies into a single, portable unit. These containers were then deployed on a **Kubernetes (K8s) cluster** on AWS, where each container ran inside a pod (the basic unit of deployment). Kubernetes automates scaling and management by launching and terminating pods based on demand, distributing traffic across pods with built-in load balancing, and recovering from failures without manual intervention. This system eliminates the need for manual instance management and makes deployment much more efficient and scalable.
 
@@ -29,6 +35,7 @@ At the database layer, Fabflix is structured to support scalability through a **
 
 ### :lock: SECURITY
 Fabflix implements multiple protections to strengthen system security. **Password encryption** securely stores user credentials in the database, ensuring sensitive information is not kept in plain text. On the backend, **prepared statements** in servlets guard against SQL injection attacks. **Authentication filters** restrict access to protected pages, requiring users to log in before accessing core application functionality. A **reCAPTCHA** prevents automated abuse during login, while **enforced HTTPS** (in deployed version) protects all client-server communication.
+
 
 ## :page_facing_up: PAGES AND FEATURES
 User Pages\
