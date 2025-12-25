@@ -10,7 +10,7 @@ Fabflix is a full-stack movie marketplace with search, browse, and (mock) purcha
 **Tech Stack** | Java, MySQL, JavaScript, HTML, Bootstrap, Apache Tomcat, Docker, Kubernetes, AWS EC2, Google Cloud, IntelliJ IDEA, Maven, JMeter
 
 ## :film_strip: DEMOS
-The following is a collection of demo videos showcasing Fabflix deployment and core app functionality. Each video highlights a different version of the app (with V1 representing the initial version and V4 the final version) and focuses on new functionality added during that two-week sprint. The description under each video contains clickable timestamps with brief notes on key steps.
+The following is a collection of demo videos showcasing Fabflix deployment and core app functionality. Each video highlights a different version of the app (with V1 representing the initial version and V4 the final version) and focuses on the new functionality added. The description under each video contains clickable timestamps with brief notes on key steps.
 
 > [!IMPORTANT]
 > While enforced HTTPS and reCAPTCHA are included in the repository source code, these features were temporarily removed when recording Fabflix Demo V4. This was necessary to perform local testing with JMeter because a) JMeter can encounter issues with SSL (SSL is used by HTTPS) and b) it simulates bot activity, making reCAPTCHA impractical during automated testing.
