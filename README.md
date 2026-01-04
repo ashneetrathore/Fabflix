@@ -67,11 +67,11 @@ Links within pages are context-aware, meaning they navigate to relevant content 
 ## :open_file_folder: PROJECT FILE STRUCTURE
 ```bash
 Fabflix/
-│── scripts/              # Contains sql scripts for database setup, procedures, etc
-│── xmlfiles/             # Contains XML files used by SAX Parsers
 │── src/            
 │   │── XMLParsing/       # Contains Java files with XML parsing logic
 │   └── *.java            # Remaining Java files implementing servlets and other backend logic
+│── scripts/              # Contains sql scripts for database setup, procedures, etc
+│── xmlfiles/             # Contains XML files used by SAX Parsers
 │── WebContent/
 │   │── META-INF/
 │   │   └── context.xml   # Configures database connections
