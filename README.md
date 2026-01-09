@@ -14,13 +14,13 @@ View more of my full-stack web apps on GitHub [here](https://github.com/stars/as
 ## :film_strip: DEMOS
 The following is a collection of demo videos showcasing Fabflix deployment and core app functionality. Each video highlights a different version of the app (with V1 representing the initial version and V4 the final version) and focuses on the new functionality added. The description under each video contains clickable timestamps with brief notes on key steps.
 
-> [!IMPORTANT]
-> While enforced HTTPS and reCAPTCHA are included in the repository source code, these features were temporarily removed when recording Fabflix Demo V4. This was necessary to perform local testing with JMeter because a) JMeter can encounter issues with SSL (SSL is used by HTTPS) and b) it simulates bot activity, making reCAPTCHA impractical during automated testing.
-
 [Fabflix Demo V1](https://youtu.be/zLr02dkXvww?si=8RD5tr6fShmn8hCh) | Initial Deployment and Core App Functionality\
 [Fabflix Demo V2](https://youtu.be/-_t8zEtrpQI?si=rnibk6zNPNhP1pkO) | XML Parsing, Security Features, & Employee-Access Features\
-[Fabflix Demo V3](https://youtu.be/g4ee-v2bQro?si=T6k6s6FKSe1H6u9U) | Load Balancing Setup and Full-text and Automcomplete Search\
+[Fabflix Demo V3](https://youtu.be/g4ee-v2bQro?si=T6k6s6FKSe1H6u9U) | Load Balancing Setup and Full-text and Auto-complete Search\
 [Fabflix Demo V4](https://youtu.be/O8jyhIrbK7I?si=q7kRGiQ2Lg-U-vns) | Kubernetes Deployment
+
+> [!IMPORTANT]
+> While enforced HTTPS and reCAPTCHA are included in the repository source code, these features were temporarily removed when recording Fabflix Demo V4. This was necessary to perform local testing with JMeter because a) JMeter can encounter issues with SSL (SSL is used by HTTPS) and b) it simulates bot activity, making reCAPTCHA impractical during automated testing.
 
 ## :classical_building: ARCHITECTURE
 ### :gear: BACKEND
