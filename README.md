@@ -50,7 +50,7 @@ Description of the main user-facing pages in the application:
 - Login Page | Prompts users to log in
 - Search Page | Supports **full-text and autocomplete searching** across multiple fields, including title, release year, director, or starring actor
 - Browse Page | Supports browsing by genre or by the first character of a movie title
-- Movie Results Page | Displays movies returned by search or browse actions and supporting sorting by rating or title
+- Movie Results Page | Displays movies returned by search or browse actions and supports sorting by rating or title
 - Movie Info Page | Displays information about a movie, including title, release year, director, genres, cast, and rating
 - Star Info Page | Displays information about a star, including name, birthdate, and the movies they've appeared in
 - Cart Page | Shows movies added to the cart, along with total cost, including options to adjust quantities and remove items
