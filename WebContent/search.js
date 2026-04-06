@@ -133,9 +133,6 @@ $('#title').autocomplete({
     lookup: function (query, doneCallback) {
         handleLookup(query, doneCallback)
     },
-    onSelect: function(suggestion) {
-        handleSelectSuggestion(suggestion)
-    },
     // set delay time
     deferRequestBy: 300,
     minChars: 3

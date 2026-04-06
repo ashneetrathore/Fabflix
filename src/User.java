@@ -1,5 +1,4 @@
 import XMLParsing.Movie;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,18 +26,17 @@ public class User {
     public Integer getId() {
         return this.id;
     }
-
     public Double getTotalPrice() {
         return this.totalPrice;
+    }
+    public Map<Movie, Integer> getCart() {
+        return this.cart;
     }
 
     public void setTotalPrice(Double price) {
         this.totalPrice = price;
     }
 
-    public Map<Movie, Integer> getCart() {
-        return this.cart;
-    }
 
     public void addToCart(Movie movie) {
         Integer quantity = this.cart.get(movie);

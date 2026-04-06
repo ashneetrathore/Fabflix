@@ -30,25 +30,19 @@ function handleCartResult(cartResponse) {
     }
 }
 
-/**
- * Handles the data returned by the API, read the jsonObject and populate data into html elements
- * @param resultData jsonObject
- */
 function handleMovieListResult(resultData) {
     console.log("handleMovieListResult: populating movie table from resultData");
 
     let totalMovieCount = parseInt(resultData[resultData.length - 1]["totalMovies"]);
     let searchParams = new URLSearchParams(window.location.search);
 
-    let currentPage = 1;
-    if (searchParams.has("pageNum")) {
-        currentPage = parseInt(searchParams.get("pageNum"));
-    }
+    let currentPage = parseInt(searchParams.get("pageNum")) || 1;
 
     let perPageOption = 10;
     if (searchParams.has("perPage")) {
         perPageOption = parseInt(searchParams.get("perPage"));
     }
+
     let totalPages = Math.ceil(totalMovieCount / perPageOption);
 
     if (currentPage == 1) {
@@ -66,48 +60,51 @@ function handleMovieListResult(resultData) {
         let rowHTML = "";
         rowHTML += "<tr>";
 
-        let movieHTML = "";
-        movieHTML += '<a href=' + resultData[i]["movie_id"] + '"single-movie.html?id=">'
-            + resultData[i]["movie_name"] +
-            '</a>';
-        rowHTML += "<th>" + movieHTML + "</th>";
+        // Movie title link
+        rowHTML += '<th><a href="single-movie.html?id=' + resultData[i]["movie_id"] + '">'
+            + resultData[i]["movie_name"]
+            + '</a></th>';
 
         rowHTML += "<th>" + resultData[i]["movie_yr"] + "</th>";
         rowHTML += "<th>" + resultData[i]["movie_director"] + "</th>";
 
+        // Genre links
         let genresArray = resultData[i]["movie_genres"].split(",");
         let genresHTML = "";
-        for (let i = 0; i < genresArray.length; i++) {
-            genresHTML += '<a href=' + genresArray[i] + '"index.html?pageNum=1&genre=">'
-                + genresArray[i]
+        for (let j = 0; j < genresArray.length; j++) {
+            genresHTML += '<a href="index.html?pageNum=1&genre=' + encodeURIComponent(genresArray[j]) + '">'
+                + genresArray[j]
                 + '</a>';
-            if (i < genresArray.length - 1) {
+            if (j < genresArray.length - 1) {
                 genresHTML += "<br>";
             }
         }
         rowHTML += "<th>" + genresHTML + "</th>";
 
+        // Star links
         let starsArray = resultData[i]["movie_stars"].split(",");
         let starIdsArray = resultData[i]["movie_star_ids"].split(",");
         let starsHTML = "";
-        for (let i = 0; i < starsArray.length; i++) {
-            starsHTML += '<a href=' + starIdsArray[i] + '"single-star.html?id=">'
-                + starsArray[i]
+        for (let j = 0; j < starsArray.length; j++) {
+            starsHTML += '<a href="single-star.html?id=' + starIdsArray[j] + '">'
+                + starsArray[j]
                 + '</a>';
-            if (i < starsArray.length - 1) {
+            if (j < starsArray.length - 1) {
                 starsHTML += "<br>";
             }
         }
         rowHTML += "<th>" + starsHTML + "</th>";
 
+        // Rating
         let rating = resultData[i]["movie_rating"];
         if (rating == null) {
             rating = "N/A";
         }
-
         rowHTML += "<th>" + rating + "</th>";
 
-        let addCartButtonHTML = '<button class="btn btn-primary" onclick="addToCart(\'' + resultData[i]["movie_id"] + '\')">Add to Cart</button>';
+        // Add to cart button
+        let addCartButtonHTML = '<button class="btn btn-primary" onclick="addToCart(\''
+            + resultData[i]["movie_id"] + '\')">Add to Cart</button>';
         rowHTML += "<td>" + addCartButtonHTML + "</td>";
 
         rowHTML += "</tr>";
@@ -120,7 +117,7 @@ $(document).ready(function () {
     generateMovieList(searchParams);
     console.log(searchParams);
 
-    let currentPage = parseInt(searchParams.get("pageNum"));
+    let currentPage = parseInt(searchParams.get("pageNum")) || 1;
 
     let orderByOption = searchParams.get("orderBy");
     if (orderByOption) {
@@ -134,41 +131,31 @@ $(document).ready(function () {
 
     jQuery("#order_by").change(function () {
         let option = jQuery("#order_by").val();
-
         if (searchParams.has("orderBy")) {
             searchParams.set("orderBy", option);
         } else {
             searchParams.append("orderBy", option);
         }
-
-        let searchUrl = "index.html?" + searchParams.toString();
-        window.location.replace(searchUrl);
+        window.location.replace("index.html?" + searchParams.toString());
     });
 
     jQuery("#per_page").change(function () {
         let option = jQuery("#per_page").val();
-
         if (searchParams.has("perPage")) {
             searchParams.set("perPage", option);
         } else {
             searchParams.append("perPage", option);
         }
-
-        let searchUrl = "index.html?" + searchParams.toString();
-        window.location.replace(searchUrl);
+        window.location.replace("index.html?" + searchParams.toString());
     });
 
-    jQuery("#nextButton").click(function() {
+    jQuery("#nextButton").click(function () {
         searchParams.set("pageNum", (currentPage + 1).toString());
-        let searchUrl = "index.html?" + searchParams.toString();
-        window.location.replace(searchUrl);
+        window.location.replace("index.html?" + searchParams.toString());
     });
 
-    jQuery("#prevButton").click(function() {
+    jQuery("#prevButton").click(function () {
         searchParams.set("pageNum", (currentPage - 1).toString());
-        let searchUrl = "index.html?" + searchParams.toString();
-        window.location.replace(searchUrl);
+        window.location.replace("index.html?" + searchParams.toString());
     });
-
-
 });

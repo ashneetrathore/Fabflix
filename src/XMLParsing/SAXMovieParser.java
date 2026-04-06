@@ -75,8 +75,8 @@ public class SAXMovieParser extends DefaultHandler {
     private void setMaxGenreId() {
         try {
             String url = "jdbc:mysql://localhost:3306/moviedb";
-            String user = "your_db_user";
-            String password = "your_db_pwd";
+            String user = "my_db_user";
+            String password = "my_db_pwd";
             Connection conn = DriverManager.getConnection(url, user, password);
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT MAX(id) AS max_id FROM genres");
@@ -151,8 +151,8 @@ public class SAXMovieParser extends DefaultHandler {
     private ArrayList<Integer> checkGenreExists(ArrayList<String> genreList) {
         try {
             String url = "jdbc:mysql://localhost:3306/moviedb";
-            String user = "your_db_user";
-            String password = "your_db_pwd";
+            String user = "my_db_user";
+            String password = "my_db_pwd";
             Connection conn = DriverManager.getConnection(url, user, password);
 
             String query1 = "SELECT COUNT(*) AS genreCount FROM genres WHERE name = ?";

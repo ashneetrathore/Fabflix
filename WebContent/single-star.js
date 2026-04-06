@@ -19,7 +19,6 @@ function getParameterByName(target) {
  * Handles the data returned by the API, read the jsonObject and populate data into html elements
  * @param resultData jsonObject
  */
-
 function handleResult(resultData) {
     console.log("handleResult: populating star info from resultData");
 
@@ -35,11 +34,12 @@ function handleResult(resultData) {
     rowHTML += "<th>" + resultData[0]["star_name"] + "</th>";
     rowHTML += "<th>" + star_dob + "</th>";
 
+    // Movie links
     let movieHTML = "";
     for (let i = 0; i < resultData.length; i++) {
-        movieHTML += '<a href=' + resultData[i]['movie_id'] + '"single-movie.html?id=">'
-            + resultData[i]["movie_name"] +
-            '</a>';
+        movieHTML += '<a href="single-movie.html?id=' + resultData[i]["movie_id"] + '">'
+            + resultData[i]["movie_name"]
+            + '</a>';
         if (i < resultData.length - 1) {
             movieHTML += "<br>";
         }
@@ -53,7 +53,6 @@ function handleResult(resultData) {
 /**
  * Once this .js is loaded, following scripts will be executed by the browser
  */
-
 let starId = getParameterByName('id');
 
 jQuery.ajax({
