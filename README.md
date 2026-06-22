@@ -2,14 +2,11 @@
 
 ## :open_book: OVERVIEW
 Date: June 2024\
-Developer(s): Ashneet Rathore\
-Based on assignment instructions from Prof. Chen Li
+Developer(s): Ashneet Rathore
 
-Fabflix is a full-stack movie marketplace with search, browse, and (mock) purchase functionality for 16,000+ movies. The application is implemented with a complex, layered architecture supported by persistent data storage, with scalability and security as core priorities. Users can explore the movie collection using various filters, view detailed information about movies and actors, add titles to a shopping cart, and complete a digital purchase using a credit card. The application also includes employee-access features to add new movies or actors to the database.
+Fabflix is a full-stack movie marketplace with search, browse, and (mock) purchase functionality for 16,000+ movies. Users can explore the movie collection using various filters, view detailed information about movies and actors, add titles to a shopping cart, and complete a digital purchase using a credit card. The application also includes employee-access features to add new movies or actors to the database.
 
-**Tech Stack** | Java, MySQL, JavaScript, HTML, Bootstrap, Apache Tomcat, Docker, Kubernetes, AWS EC2, Google Cloud, IntelliJ IDEA, Maven, JMeter
-
-View more of my full-stack apps on GitHub [here](https://github.com/stars/ashneetrathore/lists/full-stack)
+**Tech Stack** | Java, MySQL, JavaScript, HTML, Bootstrap, Apache Tomcat, Docker, Kubernetes, AWS EC2, Google Cloud, Apache Maven
 
 ## :film_strip: DEMOS
 The following is a collection of demo videos showcasing Fabflix deployment and core app functionality. Each video highlights a different version of the app (with V1 representing the initial version and V4 the final version) and focuses on the new functionality added. The description under each video contains clickable timestamps with brief notes on key steps.
@@ -23,26 +20,25 @@ The following is a collection of demo videos showcasing Fabflix deployment and c
 > While enforced HTTPS and reCAPTCHA are included in the repository source code, these features were temporarily removed when recording Fabflix Demo V4. This was necessary to perform local testing with JMeter because a) JMeter can encounter issues with SSL (SSL is used by HTTPS) and b) it simulates bot activity, making reCAPTCHA impractical during automated testing.
 
 ## :classical_building: ARCHITECTURE
-### :gear: BACKEND
-The backend is engineered with **Java Servlets** that use **JDBC (Java Database Connectivity)** to interact with a **MySQL** movie database, handling operations such as reading and writing data. The servlets receive a HTTP request from the frontend, execute these operations, and return a response in JSON format for rendering. Additionally, **SAX parsing** is used to efficiently process large XML datasets and integrate the extracted data into the movie database. 
+### :computer: APPLICATION LAYER
+The backend is engineered with **Java Servlets** that use **JDBC (Java Database Connectivity)** to interact with a **MySQL** database. **SAX parsing** is used to process large XML datasets and integrate extracted data into the database. The frontend is built with **JavaScript**, **HTML**, and **Bootstrap**, using **jQuery AJAX** calls to communicate with the backend.
 
-### :computer_mouse: FRONTEND
-The frontend is built with **JavaScript**, **HTML**, and **Bootstrap** styling, providing a dynamic and responsive interface. JavaScript manages client-side behavior and user interactions by communicating with the backend through **jQuery AJAX** calls. Responses from the backend are returned as structured JSON data, which JavaScript processes to dynamically update the HTML content.
+Flow of a search request:
+- JavaScript captures user input and sends an HTTP request via jQuery AJAX to the appropriate Java Servlet
+- The servlet queries the MySQL database via JDBC and returns a JSON response
+- JavaScript processes the JSON response and dynamically updates the HTML content
 
 ### :rocket: DEPLOYMENT & SCALABILITY
-> [!NOTE]
-> Components, such as load balancing and Kubernetes, are primarily implemented through infrastructure configuration and deployment steps rather than application-level source code. To see these components in action, check out the [Demos](#film_strip-demos) section, which features videos launching EC2 instances, displaying active Kubernetes clusters on the terminal, and more.
+Fabflix application was deployed on **AWS EC2**, with **Apache Tomcat** serving as the application server, running Java servlets and handling client requests. In this layered architecture, EC2 provides the computing resources and Tomcat runs the application on top of each instance.
 
-Fabflix's deployment strategy emphasizes traffic distribution and scalability to handle high user load reliably. The application was deployed on **AWS EC2**, with each instance functioning as an independent virtual machine hosting the full stack application. **Apache Tomcat** serves as the application server, running Java servlets and handling client requests. In this layered architecture, EC2 provides the computing resources and Tomcat runs the application on top of each instance.
+Initially deployed on a single EC2 instance, an **Apache load balancer** was later configured to distribute incoming traffic across multiple backend instances. By spreading requests across multiple servers, the load balancer prevents any single instance from becoming overloaded, improving performance and scalability. **Sticky sessions** via cookies maintain session continuity, which is important for use cases like shopping cart functionality. A **Google Cloud Platform (GCP) load balancer** was also configured as a learning exercise.
 
-Initially, Fabflix was deployed on a single EC2 instance. Later, an **Apache load balancer** running on an EC2 instance was configured to distribute incoming traffic across multiple backend instances. By spreading requests across multiple servers, the load balancer prevents any single instance from becoming overloaded, improving performance and scalability. To maintain session continuity - for example, for shopping cart functionality - the load balancer uses **sticky sessions**, implemented with cookies. This approach ensures each user's requests are consistently routed to the same server to preserve session data while still supporting scalable traffic distribution. In addition to the EC2-based Apache load balancer, a **Google Cloud Platform (GCP) load balancer** was also configured as a learning exercise to explore cloud load balancing in a different environment.
+To streamline deployment, Fabflix was containerized using **Docker** and deployed on a **Kubernetes (K8s) cluster** on AWS. Kubernetes automates scaling by launching and terminating pods based on demand, distributing traffic across pods with built-in load balancing, and recovering from failures without manual intervention.
 
-Manually launching new EC2 instances and configuring the load balancer was time-consuming and prone to human error. To streamline deployment, Fabflix was later containerized using **Docker**, packaging the application with all its dependencies into a single, portable unit. These containers were then deployed on a **Kubernetes (K8s) cluster** on AWS, where each container ran inside a pod (the basic unit of deployment). Kubernetes automates scaling and management by launching and terminating pods based on demand, distributing traffic across pods with built-in load balancing, and recovering from failures without manual intervention. This system eliminates the need for manual instance management and makes deployment much more efficient and scalable.
-
-At the database layer, Fabflix is structured to support scalability through a **primary-replica MySQL architecture**. In this setup, all write operations, such as adding movies or sales records, are directed to the primary database, while read operations, like browsing or searching, are handled by a replica database. This prevents the load from falling all onto one database. In the current implementation, both data sources in the `context.xml` point to the same database, so the scalability benefits are not yet active. However, this configuration demonstrates the system's readiness to support replication in the future. Additionally, **connection pooling** optimizes database access by reusing open connections instead of opening a new one for every request, improving efficiency and response time.
+At the database layer, a **primary-replica MySQL architecture** directs write operations to the primary database and read operations to a replica. This prevents the load from falling all onto one database. In the current implementation, both data sources point to the same database, but this configuration demonstrates readiness to support replication. **Connection pooling** further optimizes database access by reusing open connections instead of opening a new one per request.
 
 ### :lock: SECURITY
-Fabflix implements multiple protections to strengthen system security. **Password encryption** securely stores user credentials in the database, ensuring sensitive information is not kept in plain text. On the backend, **prepared statements** in servlets guard against SQL injection attacks. **Authentication filters** restrict access to protected pages, requiring users to log in before accessing core application functionality. A **reCAPTCHA** prevents automated abuse during login, while **enforced HTTPS** protects all client-server communication.
+Fabflix implements multiple protections to strengthen system security. **Password encryption** securely stores user credentials in the database. **Prepared statements** guard against SQL injection attacks. **Authentication filters** restrict access to protected pages, requiring users to log in before accessing core application functionality. **reCAPTCHA** prevents automated abuse during login, while **enforced HTTPS** protects all client-server communication.
 
 ## :page_facing_up: PAGES AND FEATURES
 User Pages\
@@ -64,28 +60,26 @@ Description of the pages available to users with employee access:
 - Add Star Page | Adds a new star to the movie database by entering star info
 - Add Movie Page | Adds a new movie to the movie database by entering movie details
 
-Links within pages are context-aware, meaning they navigate to relevant content - clicking a movie on a Star Info page opens the corresponding Movie Info page, clicking a genre on a Movie Info page shows search results for that genre, etc.
-
 ## :open_file_folder: PROJECT FILE STRUCTURE
 ```bash
 fabflix/
 │── src/            
-│   │── XMLParsing/       # Contains Java files with XML parsing logic
-│   └── *.java            # Remaining Java files implementing servlets and other backend logic
-│── scripts/              # Contains sql scripts for database setup, procedures, etc
-│── xmlfiles/             # Contains XML files used by SAX Parsers
+│   │── XMLParsing/       # XML parsing logic
+│   └── *.java            # Servlets and other backend logic
+│── scripts/              # SQL scripts for database setup, procedures, etc
+│── xmlfiles/             # XML files used by SAX Parsers
 │── WebContent/
 │   │── META-INF/
-│   │   └── context.xml   # Configures database connections
+│   │   └── context.xml   # Database connection config
 │   │── WEB-INF/
-│   │   └── web.xml       # Defines welcome page and registers database DataSources
-│   │── dashboard/        # Contains .js and .html files for employee dashboard interface
-│   │── *.js              # Remaining JavaScript files for frontend logic
-│   └── *.html            # Remaining HTML files for frontend logic
-│── pom.xml               # Defines Maven dependencies and build config
-│── fabflix.yaml          # Deploys Fabflix pods in Kubernetes
-│── ingress.yaml          # Routes external traffic to the Fabflix service in Kubernetes
-│── fabflixtest.jmx       # Executes JMeter tests (for testing purposes only)
+│   │   └── web.xml       # Web app config
+│   │── dashboard/        # Employee dashboard interface
+│   │── *.js              # Frontend logic
+│   └── *.html            # Frontend pages
+│── pom.xml               # Maven dependencies and build config
+│── fabflix.yaml          # Kubernetes pod deployment config
+│── ingress.yaml          # External traffic routing rules
+│── fabflixtest.jmx       # JMeter tests
 │── README.md             # Project documentation
-└── .gitignore            # Excludes files and folders from version control
+└── .gitignore            # Ignored files
 ```
