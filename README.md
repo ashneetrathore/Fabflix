@@ -21,7 +21,7 @@ The following is a collection of demo videos showcasing Fabflix deployment and c
 
 ## :classical_building: ARCHITECTURE
 ### :computer: APPLICATION LAYER
-The backend is engineered with **Java Servlets** that use **Java Database Connectivity (JDBC)** to interact with a **MySQL** database. **SAX parsing** is used to process large XML datasets and integrate extracted data into the database. The frontend is built with **JavaScript**, **HTML**, and **Bootstrap**, using **jQuery AJAX** calls to communicate with the backend.
+The backend is engineered with Java Servlets that use Java Database Connectivity (JDBC) to interact with a MySQL database. SAX parsing is used to process large XML datasets and integrate extracted data into the database. The frontend is built with JavaScript, HTML, and Bootstrap, using jQuery AJAX calls to communicate with the backend.
 
 Flow of a search request:
 - JavaScript captures user input and sends an HTTP request via jQuery AJAX to the appropriate Java Servlet
@@ -29,16 +29,16 @@ Flow of a search request:
 - JavaScript processes the JSON response and dynamically updates the HTML content
 
 ### :rocket: DEPLOYMENT & SCALABILITY
-Fabflix was deployed on **AWS EC2**, with **Apache Tomcat** serving as the application server, running Java servlets and handling client requests. In this layered architecture, EC2 provided the computing resources and Tomcat ran the application on top of each instance.
+Fabflix was deployed on AWS EC2, with Apache Tomcat serving as the application server, running Java servlets and handling client requests. In this layered architecture, EC2 provided the computing resources and Tomcat ran the application on top of each instance.
 
-Initially deployed on a single EC2 instance, Fabflix was later scaled with an **Apache load balancer** distributing incoming traffic across multiple backend instances. This prevented any single instance from becoming overloaded, improving performance and scalability. **Sticky sessions** via cookies maintained session continuity, which is important for use cases like shopping cart functionality. A **Google Cloud Platform (GCP) load balancer** was also configured as a learning exercise.
+Initially deployed on a single EC2 instance, Fabflix was later scaled with an Apache load balancer distributing incoming traffic across multiple backend instances. This prevented any single instance from becoming overloaded, improving performance and scalability. Sticky sessions via cookies maintained session continuity, which is important for use cases like shopping cart functionality. A Google Cloud Platform (GCP) load balancer was also configured as a learning exercise.
 
-To streamline deployment, Fabflix was containerized using **Docker** and deployed on a **Kubernetes (K8s) cluster** on AWS. Kubernetes automates scaling by launching and terminating pods based on demand, distributing traffic across pods with built-in load balancing, and recovering from failures without manual intervention.
+To streamline deployment, Fabflix was containerized using Docker and deployed on a Kubernetes (K8s) cluster on AWS. Kubernetes automates scaling by launching and terminating pods based on demand, distributing traffic across pods with built-in load balancing, and recovering from failures without manual intervention.
 
-At the database layer, a **primary-replica MySQL architecture** directs write operations to the primary database and read operations to a replica. This prevents the load from falling all onto one database. In the current implementation, both data sources point to the same database, but this configuration demonstrates readiness to support replication. **Connection pooling** further optimizes database access by reusing open connections instead of opening a new one per request.
+At the database layer, a primary-replica MySQL architecture directs write operations to the primary database and read operations to a replica. This prevents the load from falling all onto one database. In the current implementation, both data sources point to the same database, but this configuration demonstrates readiness to support replication. Connection pooling further optimizes database access by reusing open connections instead of opening a new one per request.
 
 ### :lock: SECURITY
-Fabflix implements multiple protections to strengthen system security. **Password encryption** securely stores user credentials in the database. **Prepared statements** guard against SQL injection attacks. **Authentication filters** restrict access to protected pages, requiring users to log in before accessing core application functionality. **reCAPTCHA** prevents automated abuse during login, while **enforced HTTPS** protects all client-server communication.
+Fabflix implements multiple protections to strengthen system security. Password encryption securely stores user credentials in the database. Prepared statements guard against SQL injection attacks. Authentication filters restrict access to protected pages, requiring users to log in before accessing core application functionality. reCAPTCHA prevents automated abuse during login, while enforced HTTPS protects all client-server communication.
 
 ## :page_facing_up: PAGES AND FEATURES
 User Pages\
